@@ -1,3 +1,10 @@
-from django.shortcuts import render
+from rest_framework import permissions
+from rest_framework import viewsets
 
-# Create your views here.
+from .serializers import *
+
+
+class ComunicacaoPerdaViewSet(viewsets.ModelViewSet):
+    queryset = ComunicacaoPerda.objects.all()
+    serializer_class = ComunicacaoPerdaSerializer
+    # permission_classes = [permissions.IsAuthenticated]
