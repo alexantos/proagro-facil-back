@@ -10,5 +10,6 @@ router.register(r'perdas', ComunicacaoPerdaViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('grafico/', grafico),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
