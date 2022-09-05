@@ -6,5 +6,5 @@ from .models import *
 class ComunicacaoPerdaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ComunicacaoPerda
-        fields = ['data_cadastro', 'nome', 'email', 'cpf', 'longitude', 'latitude', 'tipo_lavoura', 'data_colheira', 'evento_ocorrido']
+        fields = ['id', 'data_cadastro', 'nome', 'email', 'cpf', 'longitude', 'latitude', 'tipo_lavoura', 'data_colheira', 'evento_ocorrido']
 

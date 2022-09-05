@@ -5,7 +5,7 @@ from rest_framework import routers
 from api.views import *
 
 router = routers.DefaultRouter()
-router.register(r'comunicacaoperda', ComunicacaoPerdaViewSet)
+router.register(r'perdas', ComunicacaoPerdaViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
