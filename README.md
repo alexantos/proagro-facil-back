@@ -10,7 +10,7 @@ PostgreSQL https://www.postgresql.org/
 # Ao clonar o projeto digite os comandos a baixo
 `pip install -r requirements.txt` para instalar as dependências do projeto
 
-É necessário criar um banco de dados no postgresql com nome: `proagro`, usuario: `proagro` e senha: `123456` para funcionamento correto do banco de dados.
+É necessário criar um banco de dados no postgresql com nome: `proagro`, usuario: `proagro` e senha: `'123456'` para funcionamento correto do banco de dados.
 A conexão do backend django com o PSQL é feito através da url padrão: `localhost 5432`, caso necessário consultar a variável DATABASES na linha 101 do proagro-facil-back/configuracao/settings.py.
 Caso necessário (dificuldades de conexão com PostgreSQL) para efeito de teste basta trocar a variável DATABASES no settings.py para a mesma variável DATABASES na linha 94 do settings.py para utilização do sqlite como teste.
 
