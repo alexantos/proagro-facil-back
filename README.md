@@ -7,7 +7,7 @@ Python https://www.python.org/
 Django https://www.djangoproject.com/
 PostgreSQL https://www.postgresql.org/
 
-# Ao clonar o projeto digite os comandos a baixo
+# Ao clonar o projeto digite os comandos a baixo:
 `pip install -r requirements.txt` para instalar as dependências do projeto
 
 É necessário criar um banco de dados no postgresql com nome: `proagro`, usuario: `proagro` e senha: `'123456'` para funcionamento correto do banco de dados.
