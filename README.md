@@ -15,7 +15,9 @@ A conexão do backend django com o PSQL é feito através da url padrão: `local
 Caso necessário (dificuldades de conexão com PostgreSQL) para efeito de teste basta trocar a variável DATABASES no settings.py para a mesma variável DATABASES na linha 94 do settings.py para utilização do sqlite como teste.
 
 `python manage.py makemigrations api`
+
 `python manage.py migrate`
+
 `python manage.py runserve` para rodar o projeto localmente na url/porta `http://localhost:8000/`
 
 Ao acessar `http://localhost:8000/` através do navegador teremos a ferramenta para teste da api do django, nele é possível fazer um CRUD na entidade ComunicacaoPerda.
