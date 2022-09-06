@@ -1,15 +1,14 @@
-from rest_framework import permissions
 from rest_framework import viewsets
 
 from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from api.utils import calculaDistancia
 
 
 class ComunicacaoPerdaViewSet(viewsets.ModelViewSet):
     queryset = ComunicacaoPerda.objects.all()
     serializer_class = ComunicacaoPerdaSerializer
-    # permission_classes = [permissions.IsAuthenticated]
 
 
 @api_view(['GET'])
@@ -28,47 +27,19 @@ def grafico(request):
 @api_view(['GET'])
 def verifica_distancia(request, id):
     perda_parametro = ComunicacaoPerda.objects.get(id=id)
-    #Testar corretamente esse método
-    for perda_banco in ComunicacaoPerda.objects.filter(data_cadastro=perda_parametro.data_cadastro).exclude(evento_ocorrido=perda_parametro.evento_ocorrido):
-        distancia = getDistanceBetweenPointsNew(
-            latitude1=perda_parametro.latitude,
-            longitude1=perda_parametro.longitude,
-            latitude2=perda_banco.latitude,
-            longitude2=perda_banco.longitude,
-            unit='kilometers'
-        )
-        print(distancia)
-        if distancia <= 10:
-            print("Comunica analista")
-        else:
-            print("Segue o baile")
+    # FIXME Melhorar verificação de data
+    perdas = ComunicacaoPerda.objects.filter(data_cadastro__day=perda_parametro.data_cadastro.day, data_cadastro__month=perda_parametro.data_cadastro.month, data_cadastro__year=perda_parametro.data_cadastro.year)
+    for perda_banco in perdas:
+        if not perda_banco.evento_ocorrido == perda_parametro.evento_ocorrido:
+            distancia = calculaDistancia(
+                latitude1=perda_parametro.latitude,
+                longitude1=perda_parametro.longitude,
+                latitude2=perda_banco.latitude,
+                longitude2=perda_banco.longitude,
+                unit='kilometers'
+            )
+            if distancia <= 10:
+                return Response({'distancia_menor': True})
+            else:
+                return Response({'distancia_menor': False})
     return Response({})
-
-
-from numpy import sin, cos, arccos, pi, round
-
-
-def rad2deg(radians):
-    degrees = radians * 180 / pi
-    return degrees
-
-
-def deg2rad(degrees):
-    radians = degrees * pi / 180
-    return radians
-
-
-def getDistanceBetweenPointsNew(latitude1, longitude1, latitude2, longitude2, unit='miles'):
-    theta = longitude1 - longitude2
-
-    distance = 60 * 1.1515 * rad2deg(
-        arccos(
-            (sin(deg2rad(latitude1)) * sin(deg2rad(latitude2))) +
-            (cos(deg2rad(latitude1)) * cos(deg2rad(latitude2)) * cos(deg2rad(theta)))
-        )
-    )
-
-    if unit == 'miles':
-        return round(distance, 2)
-    if unit == 'kilometers':
-        return round(distance * 1.609344, 2)

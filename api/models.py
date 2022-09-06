@@ -6,8 +6,8 @@ class ComunicacaoPerda(models.Model):
     nome = models.CharField(max_length=128)
     email = models.EmailField(max_length=128)
     cpf = models.CharField(max_length=16)
-    longitude = models.DecimalField(max_digits=8, decimal_places=8)  # localizacao_lavoura
-    latitude = models.DecimalField(max_digits=8, decimal_places=8)
+    longitude = models.FloatField()  # localizacao_lavoura
+    latitude = models.FloatField()
     tipo_lavoura = models.CharField(max_length=16)
     data_colheira = models.DateTimeField()
     evento_ocorrido = models.CharField(max_length=16)
